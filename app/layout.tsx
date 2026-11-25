@@ -1,7 +1,17 @@
+
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import {
+  Inter,
+  IBM_Plex_Mono,
+  Space_Grotesk,
+} from "next/font/google";
+
 import Preloader from "@/components/layout/Preloader";
 import SmoothScroll from "@/components/layout/SmoothScroll";
+
+import CustomCursor from "@/components/effects/CustomCursor";
+import GlobalMotion from "@/components/effects/GlobalMotion";
+
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -23,7 +33,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: {
     default: "Aether Lab",
-    template: "%s — Aether Lab",
+    template: "%s | Aether Lab",
   },
   description:
     "Independent technology studio focused on software, Web3, AI, and experimental digital systems.",
@@ -41,8 +51,14 @@ export default function RootLayout({
     >
       <body>
         <Preloader />
+
         <SmoothScroll />
+
+        <CustomCursor />
+
         {children}
+
+        <GlobalMotion />
       </body>
     </html>
   );

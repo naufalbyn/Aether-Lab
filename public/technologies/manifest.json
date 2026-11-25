@@ -1,0 +1,147 @@
+{
+  "nextdotjs": {
+    "src": "/technologies/nextdotjs.svg",
+    "title": "Next.js",
+    "source": "https://vercel.com/design/brands#next-js",
+    "color": "#FFFFFF",
+    "guidelines": "https://vercel.com/design/brands#next-js",
+    "license": null
+  },
+  "react": {
+    "src": "/technologies/react.svg",
+    "title": "React",
+    "source": "https://github.com/facebook/create-react-app/blob/282c03f9525fdf8061ffa1ec50dce89296d916bd/test/fixtures/relative-paths/src/logo.svg",
+    "color": "#61DAFB",
+    "guidelines": null,
+    "license": null
+  },
+  "typescript": {
+    "src": "/technologies/typescript.svg",
+    "title": "TypeScript",
+    "source": "https://www.typescriptlang.org/branding",
+    "color": "#3178C6",
+    "guidelines": "https://www.typescriptlang.org/branding",
+    "license": null
+  },
+  "javascript": {
+    "src": "/technologies/javascript.svg",
+    "title": "JavaScript",
+    "source": "https://github.com/voodootikigod/logo.js/blob/1544bdeed6d618a6cfe4f0650d04ab8d9cfa76d9/js.svg",
+    "color": "#F7DF1E",
+    "guidelines": null,
+    "license": {
+      "type": "MIT",
+      "url": "https://spdx.org/licenses/MIT"
+    }
+  },
+  "nodedotjs": {
+    "src": "/technologies/nodedotjs.svg",
+    "title": "Node.js",
+    "source": "https://nodejs.org/en/about/branding",
+    "color": "#83CD29",
+    "guidelines": "https://nodejs.org/en/about/branding",
+    "license": null
+  },
+  "tailwindcss": {
+    "src": "/technologies/tailwindcss.svg",
+    "title": "Tailwind CSS",
+    "source": "https://tailwindcss.com/brand",
+    "color": "#38BDF8",
+    "guidelines": "https://tailwindcss.com/brand",
+    "license": null
+  },
+  "solana": {
+    "src": "/technologies/solana.svg",
+    "title": "Solana",
+    "source": "https://solana.com/branding",
+    "color": "#14F195",
+    "guidelines": "https://solana.com/branding",
+    "license": null
+  },
+  "rust": {
+    "src": "/technologies/rust.svg",
+    "title": "Rust",
+    "source": "https://www.rust-lang.org",
+    "color": "#FFFFFF",
+    "guidelines": "https://www.rust-lang.org/policies/media-guide",
+    "license": {
+      "type": "CC-BY-SA-4.0",
+      "url": "https://spdx.org/licenses/CC-BY-SA-4.0"
+    }
+  },
+  "prisma": {
+    "src": "/technologies/prisma.svg",
+    "title": "Prisma",
+    "source": "https://github.com/prisma/presskit/tree/4bcb64181f266723439d955d60afa1c55fefa715",
+    "color": "#FFFFFF",
+    "guidelines": null,
+    "license": null
+  },
+  "vercel": {
+    "src": "/technologies/vercel.svg",
+    "title": "Vercel",
+    "source": "https://vercel.com/geist/brands",
+    "color": "#FFFFFF",
+    "guidelines": "https://vercel.com/geist/brands",
+    "license": null
+  },
+  "lucide": {
+    "src": "/technologies/lucide.svg",
+    "title": "Lucide",
+    "source": "https://lucide.dev",
+    "color": "#F56565",
+    "guidelines": null,
+    "license": null
+  },
+  "eslint": {
+    "src": "/technologies/eslint.svg",
+    "title": "ESLint",
+    "source": "https://eslint.org",
+    "color": "#A78BFA",
+    "guidelines": null,
+    "license": null
+  },
+  "ethereum": {
+    "src": "/technologies/ethereum.svg",
+    "title": "Ethereum",
+    "source": "https://ethereum.org/en/assets/",
+    "color": "#8B9DDF",
+    "guidelines": null,
+    "license": null
+  },
+  "solidity": {
+    "src": "/technologies/solidity.svg",
+    "title": "Solidity",
+    "source": "https://docs.soliditylang.org/en/v0.8.6/brand-guide.html",
+    "color": "#FFFFFF",
+    "guidelines": "https://docs.soliditylang.org/en/v0.8.6/brand-guide.html",
+    "license": {
+      "type": "CC-BY-4.0",
+      "url": "https://spdx.org/licenses/CC-BY-4.0"
+    }
+  },
+  "postgresql": {
+    "src": "/technologies/postgresql.svg",
+    "title": "PostgreSQL",
+    "source": "https://wiki.postgresql.org/wiki/Logo",
+    "color": "#699ECA",
+    "guidelines": "https://www.postgresql.org/about/policies/trademarks/",
+    "license": null
+  },
+  "gsap": {
+    "src": "/technologies/gsap.svg",
+    "title": "GSAP",
+    "source": "https://gsap.com/brand/",
+    "color": "#88CE02",
+    "guidelines": "https://gsap.com/brand/",
+    "license": null
+  },
+  "threedotjs": {
+    "src": "/technologies/threedotjs.svg",
+    "title": "Three.js",
+    "source": "https://github.com/mrdoob/three.js/blob/a567b810cfcb7f6a03e4faea99f03c53081da477/files/icon.svg",
+    "color": "#FFFFFF",
+    "guidelines": null,
+    "license": null
+  }
+}

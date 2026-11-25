@@ -1,13 +1,13 @@
+
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
-
 type RevealProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   delay?: number;
   y?: number;
@@ -26,39 +26,48 @@ export default function Reveal({
   useEffect(() => {
     const element = elementRef.current;
 
-    if (!element) {
-      return;
-    }
+    if (!element) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        element,
-        {
-          opacity: 0,
-          y,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration,
-          delay,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: element,
-            start: "top 85%",
-            once: true,
+    gsap.registerPlugin(ScrollTrigger);
+
+    const media = gsap.matchMedia();
+
+    media.add(
+      "(prefers-reduced-motion: no-preference)",
+      () => {
+        gsap.fromTo(
+          element,
+          {
+            opacity: 0,
+            y,
           },
-        }
-      );
-    }, elementRef);
+          {
+            opacity: 1,
+            y: 0,
+            duration: Math.max(0.1, duration),
+            delay: Math.max(0, delay),
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 85%",
+              once: true,
+            },
+            clearProps: "opacity,transform",
+          }
+        );
+      }
+    );
 
     return () => {
-      ctx.revert();
+      media.revert();
     };
   }, [delay, duration, y]);
 
   return (
-    <div ref={elementRef} className={className}>
+    <div
+      ref={elementRef}
+      className={className}
+    >
       {children}
     </div>
   );

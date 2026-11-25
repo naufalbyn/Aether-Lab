@@ -1,65 +1,155 @@
+
 @import "tailwindcss";
 
+/* =========================================================
+   AETHER LAB - DESIGN SYSTEM v2.1
+   Visual foundation / Color / Typography / Effects
+========================================================= */
+
 :root {
+  /* Core Colors */
   --aether-black: #0b0d10;
+  --aether-deep: #1d1d28;
+  --aether-burgundy: #1a0a0f;
   --aether-cloud: #f5f5f2;
   --aether-white: #ffffff;
 
+  /* Accent Colors */
   --aether-blue: #4f46ff;
+  --aether-cyan: #1ec1cb;
   --aether-lime: #c7ff3d;
+  --aether-violet: #8b5cf6;
 
+  /* Neutral Colors */
   --aether-muted: #8b8d91;
   --aether-border: rgba(11, 13, 16, 0.12);
+  --aether-border-dark: rgba(255, 255, 255, 0.12);
+
+  /* Gradient System */
+  --gradient-primary: linear-gradient(
+    125deg,
+    #4f46ff 0%,
+    #1ec1cb 100%
+  );
+
+  --gradient-aurora: linear-gradient(
+    135deg,
+    #1d1d28 0%,
+    #1a0a0f 45%,
+    #4f46ff 100%
+  );
+
+  --gradient-cyan: linear-gradient(
+    135deg,
+    #1ec1cb 0%,
+    #4f46ff 100%
+  );
+
+  --gradient-lime: linear-gradient(
+    120deg,
+    #c7ff3d 0%,
+    #1ec1cb 100%
+  );
+
+  --gradient-dark: linear-gradient(
+    135deg,
+    #0b0d10 0%,
+    #1d1d28 55%,
+    #1a0a0f 100%
+  );
+
+  /* Surface System */
+  --surface-light: rgba(255, 255, 255, 0.72);
+  --surface-dark: rgba(29, 29, 40, 0.72);
+
+  /* Layout */
+  --container-width: 1440px;
+  --container-padding: 40px;
+  --grid-gap: 24px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-* {
-  box-sizing: border-box;
+/* =========================================================
+   RESET & DOCUMENT
+
+   All native element resets belong to the base layer.
+   Tailwind utilities must remain able to override them.
+========================================================= */
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: auto;
+    scroll-padding-top: 100px;
+  }
+
+  body {
+    position: relative;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    background: var(--aether-cloud);
+    color: var(--aether-black);
+
+    font-family: var(--font-inter), sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    border: 0;
+    background: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background: var(--aether-cyan);
+    color: var(--aether-black);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--aether-cyan);
+    outline-offset: 4px;
+  }
 }
 
-html {
-  scroll-behavior: auto;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-
-  background: var(--aether-cloud);
-  color: var(--aether-black);
-
-  font-family: var(--font-inter), sans-serif;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-button,
-a,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  border: 0;
-  background: none;
-}
-
-::selection {
-  background: var(--aether-blue);
-  color: var(--aether-white);
-}
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
 
 .font-display {
   font-family: var(--font-space-grotesk), sans-serif;
@@ -73,31 +163,98 @@ button {
   color: var(--aether-muted);
 }
 
-.bg-aether-black {
-  background: var(--aether-black);
-}
-
-.bg-aether-cloud {
-  background: var(--aether-cloud);
-}
-
 .text-aether-blue {
   color: var(--aether-blue);
+}
+
+.text-aether-cyan {
+  color: var(--aether-cyan);
 }
 
 .text-aether-lime {
   color: var(--aether-lime);
 }
 
+.text-gradient-primary {
+  color: transparent;
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.text-gradient-aurora {
+  color: transparent;
+  background: linear-gradient(
+    110deg,
+    #ffffff 0%,
+    #1ec1cb 35%,
+    #8b5cf6 70%,
+    #4f46ff 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* =========================================================
+   COLOR UTILITIES
+========================================================= */
+
+.bg-aether-black {
+  background-color: var(--aether-black);
+}
+
+.bg-aether-deep {
+  background-color: var(--aether-deep);
+}
+
+.bg-aether-burgundy {
+  background-color: var(--aether-burgundy);
+}
+
+.bg-aether-cloud {
+  background-color: var(--aether-cloud);
+}
+
+.bg-aether-cyan {
+  background-color: var(--aether-cyan);
+}
+
+.bg-aether-blue {
+  background-color: var(--aether-blue);
+}
+
+.bg-aether-lime {
+  background-color: var(--aether-lime);
+}
+
+.bg-gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.bg-gradient-aurora {
+  background: var(--gradient-aurora);
+}
+
+.bg-gradient-dark {
+  background: var(--gradient-dark);
+}
+
+/* =========================================================
+   LAYOUT SYSTEM
+========================================================= */
+
 .aether-container {
-  width: min(100% - 40px, 1440px);
+  width: min(
+    calc(100% - var(--container-padding) * 2),
+    var(--container-width)
+  );
   margin-inline: auto;
 }
 
 .aether-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: 24px;
+  column-gap: var(--grid-gap);
 }
 
 .aether-grid-line {
@@ -106,12 +263,15 @@ button {
   z-index: -1;
   pointer-events: none;
 
-  width: min(100% - 40px, 1440px);
+  width: min(
+    calc(100% - var(--container-padding) * 2),
+    var(--container-width)
+  );
   margin-inline: auto;
 
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 24px;
+  gap: var(--grid-gap);
 
   opacity: 0.35;
 }
@@ -120,22 +280,272 @@ button {
   border-inline: 1px solid var(--aether-border);
 }
 
-@media (max-width: 768px) {
-  .aether-container {
-    width: min(100% - 32px, 1440px);
-  }
+/* =========================================================
+   BACKGROUND SYSTEM
+========================================================= */
 
-  .aether-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 16px;
-  }
-
-  .aether-grid-line {
-    width: min(100% - 32px, 1440px);
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-  }
+.aether-grid-bg {
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.045) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
 }
+
+.aether-grid-bg-light {
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(11, 13, 16, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(11, 13, 16, 0.045) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
+}
+
+.aether-ambient-bg {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 15% 15%,
+      rgba(79, 70, 255, 0.18),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 85% 25%,
+      rgba(30, 193, 203, 0.13),
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 65% 90%,
+      rgba(26, 10, 15, 0.75),
+      transparent 45%
+    ),
+    var(--aether-deep);
+}
+
+.aether-ambient-light {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 15% 10%,
+      rgba(79, 70, 255, 0.08),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 90% 75%,
+      rgba(30, 193, 203, 0.08),
+      transparent 35%
+    ),
+    var(--aether-cloud);
+}
+
+/* =========================================================
+   AMBIENT LIGHT & GLOW
+========================================================= */
+
+.aether-glow-blue {
+  box-shadow:
+    0 0 30px rgba(79, 70, 255, 0.22),
+    0 0 80px rgba(79, 70, 255, 0.12);
+}
+
+.aether-glow-cyan {
+  box-shadow:
+    0 0 30px rgba(30, 193, 203, 0.2),
+    0 0 80px rgba(30, 193, 203, 0.1);
+}
+
+.aether-glow-lime {
+  box-shadow:
+    0 0 25px rgba(199, 255, 61, 0.2),
+    0 0 65px rgba(199, 255, 61, 0.1);
+}
+
+.aether-orb {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.5;
+  will-change: transform;
+}
+
+.aether-orb-blue {
+  background: rgba(79, 70, 255, 0.55);
+}
+
+.aether-orb-cyan {
+  background: rgba(30, 193, 203, 0.45);
+}
+
+.aether-orb-violet {
+  background: rgba(139, 92, 246, 0.4);
+}
+
+/* =========================================================
+   LIQUID GLASS SYSTEM
+========================================================= */
+
+.aether-glass {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 12px 40px rgba(11, 13, 16, 0.08);
+}
+
+.aether-glass-dark {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(29, 29, 40, 0.58);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 16px 50px rgba(0, 0, 0, 0.18);
+}
+
+.aether-glass-cyan {
+  border: 1px solid rgba(30, 193, 203, 0.2);
+  background: rgba(30, 193, 203, 0.08);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+}
+
+/* =========================================================
+   BORDER & SURFACE EFFECTS
+========================================================= */
+
+.aether-border-gradient {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--aether-deep), var(--aether-deep)) padding-box,
+    var(--gradient-primary) border-box;
+}
+
+.aether-surface {
+  border: 1px solid rgba(11, 13, 16, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 40px rgba(11, 13, 16, 0.04);
+}
+
+.aether-surface-dark {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(11, 13, 16, 0.7);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================================================
+   TEXTURE
+========================================================= */
+
+.aether-noise {
+  position: relative;
+  isolation: isolate;
+}
+
+.aether-noise::after {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  content: "";
+  opacity: 0.12;
+  background-image:
+    repeating-radial-gradient(
+      circle at 17% 32%,
+      rgba(255, 255, 255, 0.18) 0,
+      rgba(255, 255, 255, 0.18) 0.5px,
+      transparent 0.8px,
+      transparent 3px
+    );
+  background-size: 7px 7px;
+  mix-blend-mode: soft-light;
+}
+
+/* =========================================================
+   INTERACTION UTILITIES
+========================================================= */
+
+.aether-hover-lift {
+  transition:
+    transform 500ms var(--ease-out-expo),
+    box-shadow 500ms var(--ease-out-expo),
+    border-color 300ms ease;
+}
+
+.aether-hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(11, 13, 16, 0.12);
+}
+
+.aether-hover-glow {
+  transition:
+    box-shadow 400ms ease,
+    border-color 400ms ease;
+}
+
+.aether-hover-glow:hover {
+  border-color: rgba(30, 193, 203, 0.4);
+  box-shadow: 0 0 35px rgba(30, 193, 203, 0.12);
+}
+
+.aether-image-zoom {
+  overflow: hidden;
+}
+
+.aether-image-zoom img {
+  transition: transform 900ms var(--ease-out-expo);
+}
+
+.aether-image-zoom:hover img {
+  transform: scale(1.06);
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--aether-black);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--aether-black);
+  border-radius: 999px;
+  background: rgba(30, 193, 203, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--aether-cyan);
+}
+
+/* =========================================================
+   ANIMATION KEYFRAMES
+========================================================= */
 
 @keyframes aether-loader {
   from {
@@ -144,5 +554,100 @@ button {
 
   to {
     transform: scaleX(1);
+  }
+}
+
+@keyframes aether-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes aether-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes aether-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.aether-float {
+  animation: aether-float 7s ease-in-out infinite;
+}
+
+.aether-pulse {
+  animation: aether-pulse 4s ease-in-out infinite;
+}
+
+.aether-shimmer {
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: aether-shimmer 3s linear infinite;
+}
+
+/* =========================================================
+   ACCESSIBILITY & RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+  :root {
+    --container-padding: 32px;
+    --grid-gap: 16px;
+  }
+
+  .aether-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .aether-grid-line {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--grid-gap);
+  }
+
+  .aether-grid-bg,
+  .aether-grid-bg-light {
+    background-size: 44px 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --container-padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
