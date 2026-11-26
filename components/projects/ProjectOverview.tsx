@@ -6,9 +6,18 @@ import {
   ArrowUpRight,
   Users,
   Fingerprint,
+  Flag,
+  Globe,
+  CalendarDays,
+  Layers,
+  Monitor,
+  Code2,
 } from "lucide-react";
 
-import type { Project } from "@/data/projects";
+import type {
+  Project,
+  ProjectEvent,
+} from "@/data/projects";
 
 // ==========================================
 // TYPES
@@ -16,6 +25,12 @@ import type { Project } from "@/data/projects";
 
 type ProjectOverviewProps = {
   project: Project;
+};
+
+type EventCardProps = {
+  event: ProjectEvent;
+  index: number;
+  accent: string;
 };
 
 // ==========================================
@@ -37,6 +52,199 @@ function formatNumber(number: number) {
 }
 
 // ==========================================
+// EVENT CARD
+// ==========================================
+
+function EventCard({
+  event,
+  index,
+  accent,
+}: EventCardProps) {
+  const isGlobal =
+    /global|international/i.test(event.type);
+
+  return (
+    <article className="group relative isolate flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white/65 p-6 transition-all duration-300 hover:border-black/20 hover:shadow-[0_12px_40px_rgba(0,0,0,0.04)] md:p-7">
+
+      {/* DECORATIVE BACKGROUND */}
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 -top-16 -z-10 h-40 w-40 rounded-full border"
+        style={{
+          borderColor: `${accent}15`,
+        }}
+      >
+        <div
+          className="absolute inset-5 rounded-full border"
+          style={{
+            borderColor: `${accent}10`,
+          }}
+        />
+      </div>
+
+      {/* EVENT HEADER */}
+
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex h-13 w-13 shrink-0 items-center justify-center rounded-xl bg-[#0B0D10]">
+
+          {isGlobal ? (
+            <Globe
+              aria-hidden="true"
+              size={25}
+              strokeWidth={1.4}
+              style={{
+                color: accent,
+              }}
+            />
+          ) : (
+            <Flag
+              aria-hidden="true"
+              size={25}
+              strokeWidth={1.4}
+              style={{
+                color: accent,
+              }}
+            />
+          )}
+
+        </div>
+
+        <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-black/40">
+          Event_{formatNumber(index + 1)}
+        </span>
+      </div>
+
+      {/* EVENT IDENTITY */}
+
+      <div className="mt-7">
+        <span className="inline-flex rounded-full border border-black/10 bg-black/3 px-3 py-1.5 font-mono text-[9px] uppercase tracking-widest text-black/60">
+          {event.type}
+        </span>
+
+        <h4 className="mt-4 wrap-break-word font-display text-2xl font-medium leading-tight tracking-[-0.045em]">
+          {event.name}
+        </h4>
+
+        {event.organizer && (
+          <div className="mt-4">
+            <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-black/40">
+              Organized By
+            </span>
+
+            <p className="mt-1.5 text-sm font-medium text-black/75">
+              {event.organizer}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* EVENT METADATA */}
+
+      <dl className="mt-6 flex-1 space-y-4 border-t border-black/10 pt-5">
+
+        {event.ecosystem && (
+          <div className="flex items-center justify-between gap-4">
+            <dt className="flex items-center gap-2.5 text-xs text-black/50">
+              <Layers
+                aria-hidden="true"
+                size={14}
+                strokeWidth={1.5}
+                className="shrink-0"
+              />
+
+              Ecosystem
+            </dt>
+
+            <dd className="text-right text-xs font-medium text-black/75">
+              {event.ecosystem}
+            </dd>
+          </div>
+        )}
+
+        {event.format && (
+          <div className="flex items-center justify-between gap-4">
+            <dt className="flex items-center gap-2.5 text-xs text-black/50">
+              <Monitor
+                aria-hidden="true"
+                size={14}
+                strokeWidth={1.5}
+                className="shrink-0"
+              />
+
+              Format
+            </dt>
+
+            <dd className="text-right text-xs font-medium text-black/75">
+              {event.format}
+            </dd>
+          </div>
+        )}
+
+        {event.period && (
+          <div className="flex items-center justify-between gap-4">
+            <dt className="flex items-center gap-2.5 text-xs text-black/50">
+              <CalendarDays
+                aria-hidden="true"
+                size={14}
+                strokeWidth={1.5}
+                className="shrink-0"
+              />
+
+              Period
+            </dt>
+
+            <dd className="text-right text-xs font-medium leading-5 text-black/75">
+              {event.period}
+            </dd>
+          </div>
+        )}
+
+        <div className="flex items-center justify-between gap-4">
+          <dt className="flex items-center gap-2.5 text-xs text-black/50">
+            <Code2
+              aria-hidden="true"
+              size={14}
+              strokeWidth={1.5}
+              className="shrink-0"
+            />
+
+            Participation
+          </dt>
+
+          <dd className="text-right text-xs font-medium leading-5 text-black/75">
+            {event.participation}
+          </dd>
+        </div>
+      </dl>
+
+      {/* EVENT WEBSITE */}
+
+      {event.website && (
+        <div className="mt-6 border-t border-black/10 pt-5">
+          <a
+            href={event.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${event.name} official website`}
+            className="group/link flex min-h-11 items-center justify-between gap-3 rounded-xl border border-black/10 px-4 py-3 text-xs font-medium text-black/70 transition-colors duration-300 hover:border-black/25 hover:bg-black/3 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4F46FF]"
+          >
+            Event Website
+
+            <ArrowUpRight
+              aria-hidden="true"
+              size={16}
+              strokeWidth={1.6}
+              className="shrink-0 transition-transform duration-300 motion-safe:group-hover/link:-translate-y-0.5 motion-safe:group-hover/link:translate-x-0.5"
+            />
+          </a>
+        </div>
+      )}
+    </article>
+  );
+}
+
+// ==========================================
 // PROJECT OVERVIEW
 // ==========================================
 
@@ -44,7 +252,10 @@ export default function ProjectOverview({
   project,
 }: ProjectOverviewProps) {
   const focusAreas = project.focusAreas ?? [];
+
   const team = project.team ?? [];
+
+  const events = project.events ?? [];
 
   return (
     <section
@@ -70,6 +281,7 @@ export default function ProjectOverview({
       </div>
 
       <div className="aether-container relative z-10">
+
         {/* ==================================
             SECTION HEADER
         ================================== */}
@@ -84,6 +296,7 @@ export default function ProjectOverview({
           </div>
 
           <Plus
+            aria-hidden="true"
             size={17}
             strokeWidth={1}
             className="text-black/35"
@@ -132,6 +345,7 @@ export default function ProjectOverview({
           <div className="lg:col-span-5">
             <div className="flex items-center gap-3">
               <Fingerprint
+                aria-hidden="true"
                 size={17}
                 strokeWidth={1.5}
                 className="text-[#4F46FF]"
@@ -144,7 +358,10 @@ export default function ProjectOverview({
 
             <h3 className="mt-5 max-w-lg font-display text-[clamp(1.8rem,3vw,3rem)] font-medium leading-tight tracking-[-0.045em]">
               {project.role}
-              <span className="text-[#4F46FF]">.</span>
+
+              <span className="text-[#4F46FF]">
+                .
+              </span>
             </h3>
           </div>
 
@@ -202,12 +419,14 @@ export default function ProjectOverview({
         ================================== */}
 
         <div className="mt-16 grid gap-5 md:grid-cols-2 lg:mt-24 lg:gap-6">
-          {/* Problem Card */}
+
+          {/* PROBLEM CARD */}
 
           <article className="group relative isolate overflow-hidden rounded-3xl border border-black/10 bg-white/60 p-7 transition-shadow duration-300 hover:shadow-[0_16px_50px_rgba(0,0,0,0.045)] md:p-10">
             <div className="flex items-center justify-between gap-4">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#4F46FF]/15 bg-[#4F46FF]/5">
                 <ScanSearch
+                  aria-hidden="true"
                   size={25}
                   strokeWidth={1.4}
                   className="text-[#4F46FF]"
@@ -243,7 +462,7 @@ export default function ProjectOverview({
             </div>
           </article>
 
-          {/* Objective Card */}
+          {/* OBJECTIVE CARD */}
 
           <article className="group relative isolate overflow-hidden rounded-3xl border border-white/10 bg-[#0B0D10] p-7 text-white md:p-10">
             <div
@@ -263,6 +482,7 @@ export default function ProjectOverview({
             <div className="flex items-center justify-between gap-4">
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#C7FF3D]/20 bg-[#C7FF3D]/5">
                 <Target
+                  aria-hidden="true"
                   size={25}
                   strokeWidth={1.4}
                   className="text-[#C7FF3D]"
@@ -304,9 +524,13 @@ export default function ProjectOverview({
         {team.length > 0 && (
           <div className="mt-16 border-t border-black/15 pt-10 lg:mt-24 lg:pt-14">
             <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+
+              {/* TEAM HEADING */}
+
               <div className="lg:col-span-4">
                 <div className="flex items-center gap-3">
                   <Users
+                    aria-hidden="true"
                     size={18}
                     strokeWidth={1.4}
                     className="text-[#4F46FF]"
@@ -331,53 +555,157 @@ export default function ProjectOverview({
                   this project from concept to its
                   documented state.
                 </p>
+
+                {project.teamSize !== undefined && (
+                  <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/50 px-4 py-2.5">
+                    <Users
+                      aria-hidden="true"
+                      size={15}
+                      strokeWidth={1.5}
+                      className="text-[#4F46FF]"
+                    />
+
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-black/60">
+                      {formatNumber(project.teamSize)}
+                      {" "}
+                      {project.teamSize === 1
+                        ? "Member"
+                        : "Members"}
+                    </span>
+                  </div>
+                )}
               </div>
 
-              {/* Team Members */}
+              {/* TEAM MEMBERS */}
 
-              <ul
-                aria-label="Project team members"
-                className="grid gap-3 lg:col-span-8"
-              >
-                {team.map((member, index) => (
-                  <li
-                    key={`${member.name}-${index}`}
-                    className="group flex items-center gap-4 rounded-2xl border border-black/10 bg-white/60 p-4 transition-colors duration-300 hover:border-[#4F46FF]/25 sm:gap-5 sm:p-6"
-                  >
-                    {/* Initials Avatar */}
-
-                    <div
-                      aria-hidden="true"
-                      className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#4F46FF]/10 bg-[#4F46FF]/5 sm:h-16 sm:w-16"
+              <div className="lg:col-span-8">
+                <ul
+                  aria-label="Project team members"
+                  className="grid gap-3"
+                >
+                  {team.map((member, index) => (
+                    <li
+                      key={`${member.name}-${index}`}
+                      className="group flex items-center gap-4 rounded-2xl border border-black/10 bg-white/60 p-4 transition-colors duration-300 hover:border-[#4F46FF]/25 sm:gap-5 sm:p-6"
                     >
-                      <span className="font-display text-xl font-medium tracking-tighter text-[#4F46FF]">
-                        {getInitials(member.name)}
+                      {/* INITIALS AVATAR */}
+
+                      <div
+                        aria-hidden="true"
+                        className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#4F46FF]/10 bg-[#4F46FF]/5 sm:h-16 sm:w-16"
+                      >
+                        <span className="font-display text-xl font-medium tracking-tighter text-[#4F46FF]">
+                          {getInitials(member.name)}
+                        </span>
+
+                        <span className="absolute -bottom-3 -right-3 h-10 w-10 rounded-full border border-[#4F46FF]/15" />
+                      </div>
+
+                      {/* MEMBER INFORMATION */}
+
+                      <div className="min-w-0 flex-1">
+                        <h4 className="wrap-break-word font-display text-base font-medium leading-tight tracking-tight sm:text-xl">
+                          {member.name}
+                        </h4>
+
+                        <p className="mt-2 text-xs leading-5 text-black/55 sm:text-sm">
+                          {member.role}
+                        </p>
+                      </div>
+
+                      <span
+                        aria-hidden="true"
+                        className="hidden shrink-0 font-mono text-[10px] text-black/35 sm:block"
+                      >
+                        / {formatNumber(index + 1)}
                       </span>
+                    </li>
+                  ))}
+                </ul>
 
-                      <span className="absolute -bottom-3 -right-3 h-10 w-10 rounded-full border border-[#4F46FF]/15" />
-                    </div>
+                {/* TEAM CONTEXT */}
 
-                    {/* Member Information */}
+                {project.teamNote && (
+                  <p className="mt-4 text-xs leading-6 text-black/50">
+                    {project.teamNote}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
-                    <div className="min-w-0 flex-1">
-                      <h4 className="wrap-break-word font-display text-base font-medium leading-tight tracking-tight sm:text-xl">
-                        {member.name}
-                      </h4>
+        {/* ==================================
+            HACKATHON PARTICIPATION
+        ================================== */}
 
-                      <p className="mt-2 text-xs leading-5 text-black/55 sm:text-sm">
-                        {member.role}
-                      </p>
-                    </div>
+        {events.length > 0 && (
+          <div
+            id="project-events"
+            aria-labelledby="project-events-title"
+            className="mt-16 border-t border-black/15 pt-10 lg:mt-24 lg:pt-14"
+          >
+            <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
 
-                    <span
-                      aria-hidden="true"
-                      className="hidden shrink-0 font-mono text-[10px] text-black/35 sm:block"
-                    >
-                      / {formatNumber(index + 1)}
-                    </span>
-                  </li>
+              {/* EVENT SECTION HEADING */}
+
+              <div className="lg:col-span-4">
+                <div className="flex items-center gap-3">
+                  <Flag
+                    aria-hidden="true"
+                    size={18}
+                    strokeWidth={1.4}
+                    className="text-[#4F46FF]"
+                  />
+
+                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#4F46FF]">
+                    Competitive Experience
+                  </span>
+                </div>
+
+                <h3
+                  id="project-events-title"
+                  className="mt-5 font-display text-[clamp(2rem,3.5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.055em]"
+                >
+                  Built through
+                  <br />
+
+                  <span className="text-[#4F46FF]">
+                    competition.
+                  </span>
+                </h3>
+
+                <p className="mt-5 max-w-xs text-sm leading-7 text-black/55">
+                  Collaborative technology
+                  development through hackathons
+                  and competitive project building.
+                </p>
+
+                <div className="mt-6 flex items-center gap-3">
+                  <span className="h-px w-6 bg-black/20" />
+
+                  <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-black/45">
+                    {formatNumber(events.length)}
+                    {" "}
+                    {events.length === 1
+                      ? "Documented Event"
+                      : "Documented Events"}
+                  </span>
+                </div>
+              </div>
+
+              {/* EVENT CARDS */}
+
+              <div className="grid min-w-0 gap-4 sm:grid-cols-2 lg:col-span-8">
+                {events.map((event, index) => (
+                  <EventCard
+                    key={`${event.name}-${index}`}
+                    event={event}
+                    index={index}
+                    accent={project.accent}
+                  />
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         )}

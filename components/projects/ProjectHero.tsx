@@ -25,6 +25,7 @@ type ProjectHeroProps = {
 
 const statusColors: Record<ProjectStatus, string> = {
   Rebuilding: "#FBBF24",
+  "Rebuild Planned": "#FF9135",
   "Live on Devnet": "#C7FF3D",
   "Delivered to Client": "#4ADE80",
   "In Development": "#60A5FA",

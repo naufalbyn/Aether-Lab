@@ -1,6 +1,7 @@
-﻿
+
 export type ProjectStatus =
   | "Rebuilding"
+  | "Rebuild Planned"
   | "Live on Devnet"
   | "Delivered to Client"
   | "In Development"
@@ -87,6 +88,12 @@ export interface ProjectEvent {
   name: string;
   type: string;
   participation: string;
+  organizer?: string;
+  ecosystem?: string;
+  period?: string;
+  format?: string;
+  website?: string;
+  logo?: string;
 }
 
 // ==========================================
@@ -256,7 +263,7 @@ export interface Project {
 export const projects: Project[] = [
 
   // ========================================
-  // 01 — AXEON PROTOCOL
+  // 01 - AXEON PROTOCOL
   // ========================================
 
   {
@@ -592,7 +599,7 @@ export const projects: Project[] = [
   },
 
   // ========================================
-  // 02 — STACK BLOCK ARCADE
+  // 02 - STACK BLOCK ARCADE
   // ========================================
 
   {
@@ -613,7 +620,7 @@ export const projects: Project[] = [
       "A collaborative Solana-based arcade game developed by a four-person hackathon team, combining skill-based block-stacking gameplay with blockchain-recorded scores and wallet-connected experiences.",
 
     overview:
-      "Stack Block Arcade is a collaborative arcade project developed by a four-person team for the Colosseum National Hackathon and National Campus Hackathon. It explores skill-based gameplay as an alternative to passive click-to-earn gaming models. The project combines precision-based block stacking, wallet connectivity, blockchain-recorded scores, and competitive gameplay concepts. A playable demo has been developed on Solana Devnet.",
+      "Stack Block Arcade is a collaborative arcade project developed by a four-person team for the Solana Frontier Hackathon 2026 by Colosseum and the National Campus Hackathon by Superteam Indonesia. It explores skill-based gameplay as an alternative to passive click-to-earn gaming models. The project combines precision-based block stacking, wallet connectivity, blockchain-recorded scores, and competitive gameplay concepts. A playable demo has been developed on Solana Devnet.",
 
     problem:
       "The original project proposal identifies passive click-to-earn models, inflationary reward structures, and limited skill-based challenges as problems within the GameFi ecosystem. Traditional centralized leaderboards also make independent verification of recorded achievements difficult.",
@@ -621,10 +628,10 @@ export const projects: Project[] = [
     objective:
       "Explore an engaging, skill-based blockchain arcade experience where precision, timing, and player performance form the foundation of gameplay, supported by transparent score recording and wallet-connected interactions.",
 
-    status: "Live on Devnet",
+    status: "Rebuild Planned",
 
     statusDescription:
-      "A playable game demo has been developed on Solana Devnet. Additional economic systems, Mainnet deployment, and future development remain subject to technical validation and team discussion.",
+      "The original playable implementation was developed on Solana Devnet. A future rebuild is planned, while its development scope, technical architecture, economic systems, and team arrangements remain subject to further discussion and validation.",
 
     role: "Chief Executive Officer (CEO)",
 
@@ -635,7 +642,7 @@ export const projects: Project[] = [
       "Collaborative Hackathon Development",
 
     futureDevelopment:
-      "Pending Team Discussion",
+      "Rebuild Planned - Pending Team Discussion",
 
     teamSize: 4,
 
@@ -645,14 +652,24 @@ export const projects: Project[] = [
 
     events: [
       {
-        name: "Colosseum National Hackathon",
-        type: "National Hackathon",
+        name: "Solana Frontier Hackathon 2026",
+        type: "Global Hackathon",
+        organizer: "Colosseum",
+        ecosystem: "Solana",
         participation: "Project Development",
+        period: "April 6 - May 11, 2026",
+        format: "Online",
+        website: "https://colosseum.com/frontier",
       },
       {
-        name: "National Campus Hackathon",
-        type: "National Campus Competition",
+        name: "Indonesia National Campus Hackathon",
+        type: "National Hackathon",
+        organizer: "Superteam Indonesia",
+        ecosystem: "Solana",
         participation: "Project Development",
+        period: "2026",
+        format: "Online",
+        website: "https://superteam.fun/earn/listing/indonesia-national-campus-hackathon/",
       },
     ],
 
@@ -1004,7 +1021,7 @@ export const projects: Project[] = [
   },
 
   // ========================================
-  // 03 — BANGAU MATAHARI
+  // 03 - BANGAU MATAHARI
   // ========================================
 
   {

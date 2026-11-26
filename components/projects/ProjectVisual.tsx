@@ -27,6 +27,7 @@ type ProjectVisualProps = {
   className?: string;
   animated?: boolean;
   priority?: boolean;
+  imageSizes?: string;
 };
 
 // ==========================================
@@ -507,6 +508,7 @@ export default function ProjectVisual({
   className = "",
   animated = true,
   priority = false,
+  imageSizes = "(max-width: 640px) 85vw, (max-width: 1024px) 60vw, 540px",
 }: ProjectVisualProps) {
   const visualId = useId();
 
@@ -565,7 +567,7 @@ export default function ProjectVisual({
             fill
             priority={priority}
             draggable={false}
-            sizes="(max-width: 640px) 85vw, (max-width: 1024px) 60vw, 540px"
+            sizes={imageSizes}
             onError={() =>
               setFailedCover(cover)
             }

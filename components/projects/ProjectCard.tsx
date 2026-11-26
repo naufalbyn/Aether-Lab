@@ -30,6 +30,7 @@ type ProjectCardProps = {
   featured?: boolean;
   className?: string;
   priority?: boolean;
+  imageSizes?: string;
 };
 
 // ==========================================
@@ -38,6 +39,7 @@ type ProjectCardProps = {
 
 const statusColors: Record<ProjectStatus, string> = {
   Rebuilding: "#FBBF24",
+  "Rebuild Planned": "#FF9135",
   "Live on Devnet": "#C7FF3D",
   "Delivered to Client": "#4ADE80",
   "In Development": "#60A5FA",
@@ -56,6 +58,7 @@ export default function ProjectCard({
   featured = false,
   className = "",
   priority = false,
+  imageSizes,
 }: ProjectCardProps) {
   const cardRef = useRef<HTMLElement>(null);
 
@@ -144,6 +147,7 @@ export default function ProjectCard({
               project={project}
               animated={shouldAnimate}
               priority={priority}
+              imageSizes={imageSizes}
               className="aspect-4/3 rounded-none border-0"
             />
           </div>

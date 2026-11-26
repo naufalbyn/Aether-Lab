@@ -12,8 +12,15 @@ import ProjectOverview from "@/components/projects/ProjectOverview";
 import ProjectFeatures from "@/components/projects/ProjectFeatures";
 import ProjectArchitecture from "@/components/projects/ProjectArchitecture";
 import ProjectTechnology from "@/components/projects/ProjectTechnology";
+import ProjectGallery from "@/components/projects/ProjectGallery";
+import ProjectGameplay from "@/components/projects/ProjectGameplay";
+import ProjectMetrics from "@/components/projects/ProjectMetrics";
+import RelatedProjects from "@/components/projects/RelatedProjects";
 
-import type { Project } from "@/data/projects";
+import {
+  getRelatedProjects,
+  type Project,
+} from "@/data/projects";
 
 // ==========================================
 // TYPES
@@ -24,12 +31,66 @@ type ProjectDetailProps = {
 };
 
 // ==========================================
+// SECTION NUMBERING SYSTEM
+// ==========================================
+
+function formatSectionNumber(number: number) {
+  return String(number).padStart(2, "0");
+}
+
+function getProjectSections(project: Project) {
+  const hasGallery =
+    (project.images?.gallery?.length ?? 0) > 0;
+
+  const hasGameplay =
+    Boolean(project.gameplay) &&
+    project.slug === "stack-block-arcade";
+
+  const hasMetrics =
+    (project.metrics?.length ?? 0) > 0;
+
+  const hasRelatedProjects =
+    getRelatedProjects(project.slug, 2).length > 0;
+
+  const optionalSections = [
+    {
+      id: "gallery",
+      visible: hasGallery,
+    },
+    {
+      id: "gameplay",
+      visible: hasGameplay,
+    },
+    {
+      id: "metrics",
+      visible: hasMetrics,
+    },
+    {
+      id: "related",
+      visible: hasRelatedProjects,
+    },
+  ] as const;
+
+  return optionalSections
+    .filter((section) => section.visible)
+    .map((section, index) => ({
+      id: section.id,
+
+      number: formatSectionNumber(
+        index + 5
+      ),
+    }));
+}
+
+// ==========================================
 // PROJECT DETAIL
 // ==========================================
 
 export default function ProjectDetail({
   project,
 }: ProjectDetailProps) {
+  const sections = getProjectSections(project);
+
   return (
     <main className="min-h-screen bg-[#0B0D10] text-white">
 
@@ -62,6 +123,7 @@ export default function ProjectDetail({
             className="group flex items-center gap-3 rounded-full border border-white/15 px-4 py-3 text-xs text-white/70 transition-colors duration-300 hover:border-white/40 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C7FF3D]"
           >
             <ArrowLeft
+              aria-hidden="true"
               size={16}
               strokeWidth={1.5}
               className="transition-transform duration-300 motion-safe:group-hover:-translate-x-1"
@@ -79,7 +141,7 @@ export default function ProjectDetail({
       </header>
 
       {/* ==================================
-          PROJECT SECTIONS
+          CORE PROJECT SECTIONS
       ================================== */}
 
       <ProjectHero project={project} />
@@ -100,6 +162,56 @@ export default function ProjectDetail({
         key={`technology-${project.slug}`}
         project={project}
       />
+
+      {/* ==================================
+          DYNAMIC OPTIONAL SECTIONS
+      ================================== */}
+
+      {sections.map((section) => {
+        const key =
+          `${section.id}-${project.slug}`;
+
+        switch (section.id) {
+          case "gallery":
+            return (
+              <ProjectGallery
+                key={key}
+                project={project}
+                sectionNumber={section.number}
+              />
+            );
+
+          case "gameplay":
+            return (
+              <ProjectGameplay
+                key={key}
+                project={project}
+                sectionNumber={section.number}
+              />
+            );
+
+          case "metrics":
+            return (
+              <ProjectMetrics
+                key={key}
+                project={project}
+                sectionNumber={section.number}
+              />
+            );
+
+          case "related":
+            return (
+              <RelatedProjects
+                key={key}
+                project={project}
+                sectionNumber={section.number}
+              />
+            );
+
+          default:
+            return null;
+        }
+      })}
 
       {/* ==================================
           PROJECT FOOTER
@@ -124,6 +236,7 @@ export default function ProjectDetail({
             Explore more builds
 
             <ArrowUpRight
+              aria-hidden="true"
               size={17}
               strokeWidth={1.5}
               className="transition-transform duration-300 motion-safe:group-hover:-translate-y-1 motion-safe:group-hover:translate-x-1"

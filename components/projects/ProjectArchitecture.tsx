@@ -1,15 +1,10 @@
-﻿"use client";
+"use client";
 
 import type { LucideProps } from "lucide-react";
 
-
-
 import { useId, useState } from "react";
 
-import {
-  motion,
-  useReducedMotion,
-} from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 import {
   Plus,
@@ -237,17 +232,11 @@ function ArchitectureIcon({
     return <Gamepad2 {...props} />;
   }
 
-  if (
-    normalized.includes("frontend") ||
-    normalized.includes("presentation")
-  ) {
+  if (normalized.includes("frontend") || normalized.includes("presentation")) {
     return <Monitor {...props} />;
   }
 
-  if (
-    normalized.includes("backend") ||
-    normalized.includes("server")
-  ) {
+  if (normalized.includes("backend") || normalized.includes("server")) {
     return <Server {...props} />;
   }
 
@@ -267,24 +256,15 @@ function ArchitectureIcon({
     return <Bot {...props} />;
   }
 
-  if (
-    normalized.includes("monitoring") ||
-    normalized.includes("guard")
-  ) {
+  if (normalized.includes("monitoring") || normalized.includes("guard")) {
     return <Clock3 {...props} />;
   }
 
-  if (
-    normalized.includes("payment") ||
-    normalized.includes("ordering")
-  ) {
+  if (normalized.includes("payment") || normalized.includes("ordering")) {
     return <CreditCard {...props} />;
   }
 
-  if (
-    normalized.includes("contract") ||
-    normalized.includes("blockchain")
-  ) {
+  if (normalized.includes("contract") || normalized.includes("blockchain")) {
     return <Network {...props} />;
   }
 
@@ -299,9 +279,7 @@ function ArchitectureIcon({
   return <Layers {...props} />;
 }
 
-function createFallbackDiagram(
-  layers: ArchitectureLayer[]
-): DiagramConfig {
+function createFallbackDiagram(layers: ArchitectureLayer[]): DiagramConfig {
   const rows = Math.ceil(layers.length / 2);
 
   return {
@@ -321,49 +299,33 @@ function createFallbackDiagram(
   };
 }
 
-function getDiagram(
-  project: Project
-): DiagramConfig {
+function getDiagram(project: Project): DiagramConfig {
   const configuration = DIAGRAMS[project.slug];
 
   if (!configuration) {
-    return createFallbackDiagram(
-      project.architecture
-    );
+    return createFallbackDiagram(project.architecture);
   }
 
   const isCompatible =
-    configuration.nodes.length ===
-      project.architecture.length &&
+    configuration.nodes.length === project.architecture.length &&
     configuration.nodes.every(
-      (node) =>
-        node.layer >= 0 &&
-        node.layer < project.architecture.length
+      (node) => node.layer >= 0 && node.layer < project.architecture.length,
     );
 
   return isCompatible
     ? configuration
-    : createFallbackDiagram(
-        project.architecture
-      );
+    : createFallbackDiagram(project.architecture);
 }
 
-function getEdgePath(
-  source: DiagramNode,
-  target: DiagramNode
-) {
+function getEdgePath(source: DiagramNode, target: DiagramNode) {
   // Horizontal connections
 
   if (source.y === target.y) {
     const movingRight = source.x < target.x;
 
-    const startX = movingRight
-      ? source.x + NODE_WIDTH
-      : source.x;
+    const startX = movingRight ? source.x + NODE_WIDTH : source.x;
 
-    const endX = movingRight
-      ? target.x
-      : target.x + NODE_WIDTH;
+    const endX = movingRight ? target.x : target.x + NODE_WIDTH;
 
     const y = source.y + NODE_HEIGHT / 2;
 
@@ -410,8 +372,7 @@ function ArchitectureDiagram({
   const gridId = `${uniqueId}-grid`;
   const titleId = `${uniqueId}-title`;
 
-  const prefersReducedMotion =
-    useReducedMotion();
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <svg
@@ -419,9 +380,7 @@ function ArchitectureDiagram({
       className="block h-auto w-full"
       aria-labelledby={titleId}
     >
-      <title id={titleId}>
-        {project.title} architecture explorer
-      </title>
+      <title id={titleId}>{`${`${`${project.title} architecture explorer`}`}`}</title>
 
       <defs>
         <pattern
@@ -450,46 +409,27 @@ function ArchitectureDiagram({
       {/* System Connections */}
 
       {diagram.edges.map((edge, index) => {
-        const source = diagram.nodes.find(
-          (node) => node.layer === edge.from
-        );
+        const source = diagram.nodes.find((node) => node.layer === edge.from);
 
-        const target = diagram.nodes.find(
-          (node) => node.layer === edge.to
-        );
+        const target = diagram.nodes.find((node) => node.layer === edge.to);
 
         if (!source || !target) {
           return null;
         }
 
         const isConnected =
-          edge.from === activeLayer ||
-          edge.to === activeLayer;
+          edge.from === activeLayer || edge.to === activeLayer;
 
-        const path = getEdgePath(
-          source,
-          target
-        );
+        const path = getEdgePath(source, target);
 
         return (
-          <g
-            key={`${edge.from}-${edge.to}-${index}`}
-            aria-hidden="true"
-          >
+          <g key={`${edge.from}-${edge.to}-${index}`} aria-hidden="true">
             <path
               d={path}
               fill="none"
-              stroke={
-                isConnected
-                  ? project.accent
-                  : "white"
-              }
-              strokeOpacity={
-                isConnected ? 0.55 : 0.12
-              }
-              strokeWidth={
-                isConnected ? 1.8 : 1
-              }
+              stroke={isConnected ? project.accent : "white"}
+              strokeOpacity={isConnected ? 0.55 : 0.12}
+              strokeWidth={isConnected ? 1.8 : 1}
               strokeLinejoin="round"
             />
 
@@ -506,21 +446,12 @@ function ArchitectureDiagram({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 animate={{
-                  strokeDashoffset:
-                    prefersReducedMotion
-                      ? 0
-                      : [0, -32],
+                  strokeDashoffset: prefersReducedMotion ? 0 : [0, -32],
                 }}
                 transition={{
-                  duration:
-                    prefersReducedMotion
-                      ? 0
-                      : 1.5,
+                  duration: prefersReducedMotion ? 0 : 1.5,
                   ease: "linear",
-                  repeat:
-                    prefersReducedMotion
-                      ? 0
-                      : Infinity,
+                  repeat: prefersReducedMotion ? 0 : Infinity,
                 }}
               />
             )}
@@ -531,13 +462,9 @@ function ArchitectureDiagram({
       {/* Interactive System Nodes */}
 
       {diagram.nodes.map((node) => {
-        const isActive =
-          node.layer === activeLayer;
+        const isActive = node.layer === activeLayer;
 
-        const layer =
-          project.architecture[node.layer];
-
-        
+        const layer = project.architecture[node.layer];
 
         return (
           <g
@@ -546,14 +473,9 @@ function ArchitectureDiagram({
             tabIndex={0}
             aria-label={`Explore ${layer.title}`}
             aria-pressed={isActive}
-            onClick={() =>
-              onSelect(node.layer)
-            }
+            onClick={() => onSelect(node.layer)}
             onKeyDown={(event) => {
-              if (
-                event.key === "Enter" ||
-                event.key === " "
-              ) {
+              if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
 
                 onSelect(node.layer);
@@ -584,34 +506,21 @@ function ArchitectureDiagram({
               width={NODE_WIDTH}
               height={NODE_HEIGHT}
               rx={11}
-              fill={
-                isActive
-                  ? project.surface
-                  : "#16181E"
-              }
-              stroke={
-                isActive
-                  ? project.accent
-                  : "#383B42"
-              }
-              strokeWidth={
-                isActive ? 1.8 : 1
-              }
+              fill={isActive ? project.surface : "#16181E"}
+              stroke={isActive ? project.accent : "#383B42"}
+              strokeWidth={isActive ? 1.8 : 1}
               className="transition-all duration-300 group-hover:stroke-white/60 group-focus-visible:stroke-white group-focus-visible:stroke-[2.5]"
             />
 
             {/* Node Icon */}
 
-            <ArchitectureIcon title={layer.title}
+            <ArchitectureIcon
+              title={layer.title}
               x={node.x + 15}
               y={node.y + 24}
               size={20}
               strokeWidth={1.5}
-              color={
-                isActive
-                  ? project.accent
-                  : "#9CA3AF"
-              }
+              color={isActive ? project.accent : "#9CA3AF"}
               aria-hidden="true"
             />
 
@@ -620,11 +529,7 @@ function ArchitectureDiagram({
             <text
               x={node.x + NODE_WIDTH - 12}
               y={node.y + 16}
-              fill={
-                isActive
-                  ? project.accent
-                  : "#666A73"
-              }
+              fill={isActive ? project.accent : "#666A73"}
               textAnchor="end"
               fontSize={9}
               fontFamily="monospace"
@@ -662,11 +567,9 @@ export default function ProjectArchitecture({
 }: ProjectArchitectureProps) {
   const layers = project.architecture ?? [];
 
-  const [selectedLayer, setSelectedLayer] =
-    useState(0);
+  const [selectedLayer, setSelectedLayer] = useState(0);
 
-  const prefersReducedMotion =
-    useReducedMotion();
+  const prefersReducedMotion = useReducedMotion();
 
   if (layers.length === 0) {
     return null;
@@ -674,37 +577,20 @@ export default function ProjectArchitecture({
 
   const diagram = getDiagram(project);
 
-  const activeLayer = Math.min(
-    selectedLayer,
-    layers.length - 1
-  );
+  const activeLayer = Math.min(selectedLayer, layers.length - 1);
 
   const currentLayer = layers[activeLayer];
-
-  
 
   const connectedLayers = Array.from(
     new Set(
       diagram.edges
-        .filter(
-          (edge) =>
-            edge.from === activeLayer ||
-            edge.to === activeLayer
-        )
-        .map((edge) =>
-          edge.from === activeLayer
-            ? edge.to
-            : edge.from
-        )
-    )
+        .filter((edge) => edge.from === activeLayer || edge.to === activeLayer)
+        .map((edge) => (edge.from === activeLayer ? edge.to : edge.from)),
+    ),
   );
 
   function navigateLayer(direction: number) {
-    const nextLayer =
-      (activeLayer +
-        direction +
-        layers.length) %
-      layers.length;
+    const nextLayer = (activeLayer + direction + layers.length) % layers.length;
 
     setSelectedLayer(nextLayer);
   }
@@ -762,10 +648,7 @@ export default function ProjectArchitecture({
             >
               Under the
               <br />
-
-              <span className="text-[#4F46FF]">
-                hood.
-              </span>
+              <span className="text-[#4F46FF]">hood.</span>
             </h2>
           </div>
 
@@ -779,10 +662,8 @@ export default function ProjectArchitecture({
             </div>
 
             <p className="mt-5 max-w-md text-sm leading-8 text-black/65 md:text-base">
-              Explore the technical components,
-              system relationships, and
-              architectural decisions behind
-              this project.
+              Explore the technical components, system relationships, and
+              architectural decisions behind this project.
             </p>
           </div>
         </div>
@@ -821,15 +702,13 @@ export default function ProjectArchitecture({
 
             <div className="flex items-center gap-3">
               <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-white/40">
-                {formatNumber(layers.length)}
-                {" "}System Layers
+                {formatNumber(layers.length)} System Layers
               </span>
 
               <span
                 className="h-1.5 w-1.5 rounded-full"
                 style={{
-                  backgroundColor:
-                    project.accent,
+                  backgroundColor: project.accent,
                 }}
               />
             </div>
@@ -872,37 +751,29 @@ export default function ProjectArchitecture({
 
                 <div className="grid gap-3 p-4 sm:hidden">
                   {layers.map((layer, index) => {
-                    
-
-                    const isActive =
-                      index === activeLayer;
+                    const isActive = index === activeLayer;
 
                     return (
                       <button
                         key={layer.title}
                         type="button"
                         aria-pressed={isActive}
-                        onClick={() =>
-                          setSelectedLayer(index)
-                        }
+                        onClick={() => setSelectedLayer(index)}
                         className="flex items-center gap-3 rounded-xl border p-4 text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                         style={{
-                          borderColor: isActive
-                            ? project.accent
-                            : "#FFFFFF18",
+                          borderColor: isActive ? project.accent : "#FFFFFF18",
                           backgroundColor: isActive
                             ? `${project.accent}10`
                             : "#FFFFFF04",
                         }}
                       >
-                        <ArchitectureIcon title={layer.title}
+                        <ArchitectureIcon
+                          title={layer.title}
                           aria-hidden="true"
                           size={20}
                           strokeWidth={1.5}
                           style={{
-                            color: isActive
-                              ? project.accent
-                              : "#9CA3AF",
+                            color: isActive ? project.accent : "#9CA3AF",
                           }}
                         />
 
@@ -911,9 +782,7 @@ export default function ProjectArchitecture({
                         </span>
 
                         <span className="font-mono text-[10px] text-white/40">
-                          {formatNumber(
-                            index + 1
-                          )}
+                          {formatNumber(index + 1)}
                         </span>
                       </button>
                     );
@@ -933,18 +802,12 @@ export default function ProjectArchitecture({
                     key={layer.title}
                     type="button"
                     aria-label={`Explore ${layer.title}`}
-                    aria-pressed={
-                      activeLayer === index
-                    }
-                    onClick={() =>
-                      setSelectedLayer(index)
-                    }
+                    aria-pressed={activeLayer === index}
+                    onClick={() => setSelectedLayer(index)}
                     className="flex h-10 w-10 items-center justify-center rounded-lg border font-mono text-xs transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                     style={{
                       borderColor:
-                        activeLayer === index
-                          ? project.accent
-                          : "#FFFFFF18",
+                        activeLayer === index ? project.accent : "#FFFFFF18",
 
                       backgroundColor:
                         activeLayer === index
@@ -952,9 +815,7 @@ export default function ProjectArchitecture({
                           : "#FFFFFF04",
 
                       color:
-                        activeLayer === index
-                          ? project.accent
-                          : "#FFFFFF90",
+                        activeLayer === index ? project.accent : "#FFFFFF90",
                     }}
                   >
                     {formatNumber(index + 1)}
@@ -996,24 +857,20 @@ export default function ProjectArchitecture({
                   y: 0,
                 }}
                 transition={{
-                  duration:
-                    prefersReducedMotion
-                      ? 0
-                      : 0.25,
+                  duration: prefersReducedMotion ? 0 : 0.25,
                 }}
                 className="mt-8 flex-1"
               >
                 <div
                   className="flex h-16 w-16 items-center justify-center rounded-2xl border"
                   style={{
-                    backgroundColor:
-                      `${project.accent}0D`,
+                    backgroundColor: `${project.accent}0D`,
 
-                    borderColor:
-                      `${project.accent}30`,
+                    borderColor: `${project.accent}30`,
                   }}
                 >
-                  <ArchitectureIcon title={currentLayer.title}
+                  <ArchitectureIcon
+                    title={currentLayer.title}
                     aria-hidden="true"
                     size={30}
                     strokeWidth={1.4}
@@ -1029,14 +886,10 @@ export default function ProjectArchitecture({
                     color: project.accent,
                   }}
                 >
-                  Layer /{" "}
-                  {formatNumber(activeLayer + 1)}
+                  Layer / {formatNumber(activeLayer + 1)}
                 </span>
 
-                <div
-                  aria-live="polite"
-                  aria-atomic="true"
-                >
+                <div aria-live="polite" aria-atomic="true">
                   <h3 className="mt-4 wrap-break-word font-display text-[clamp(1.7rem,2.7vw,2.8rem)] font-medium leading-tight tracking-[-0.045em]">
                     {currentLayer.title}
                   </h3>
@@ -1055,42 +908,32 @@ export default function ProjectArchitecture({
                     </span>
 
                     <div className="mt-4 grid gap-2">
-                      {connectedLayers.map(
-                        (layerIndex) => (
-                          <button
-                            key={layerIndex}
-                            type="button"
-                            onClick={() =>
-                              setSelectedLayer(
-                                layerIndex
-                              )
-                            }
-                            className="group flex items-center gap-3 rounded-lg border border-white/10 bg-white/2.5 p-3 text-left transition-colors duration-300 hover:border-white/30 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-white"
-                          >
-                            <span
-                              className="h-1.5 w-1.5 shrink-0 rounded-full"
-                              style={{
-                                backgroundColor:
-                                  project.accent,
-                              }}
-                            />
+                      {connectedLayers.map((layerIndex) => (
+                        <button
+                          key={layerIndex}
+                          type="button"
+                          onClick={() => setSelectedLayer(layerIndex)}
+                          className="group flex items-center gap-3 rounded-lg border border-white/10 bg-white/2.5 p-3 text-left transition-colors duration-300 hover:border-white/30 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-white"
+                        >
+                          <span
+                            className="h-1.5 w-1.5 shrink-0 rounded-full"
+                            style={{
+                              backgroundColor: project.accent,
+                            }}
+                          />
 
-                            <span className="min-w-0 flex-1 text-xs leading-5 text-white/75">
-                              {
-                                layers[layerIndex]
-                                  .title
-                              }
-                            </span>
+                          <span className="min-w-0 flex-1 text-xs leading-5 text-white/75">
+                            {layers[layerIndex].title}
+                          </span>
 
-                            <ArrowUpRight
-                              aria-hidden="true"
-                              size={14}
-                              strokeWidth={1.4}
-                              className="shrink-0 text-white/35"
-                            />
-                          </button>
-                        )
-                      )}
+                          <ArrowUpRight
+                            aria-hidden="true"
+                            size={14}
+                            strokeWidth={1.4}
+                            className="shrink-0 text-white/35"
+                          />
+                        </button>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -1110,30 +953,20 @@ export default function ProjectArchitecture({
                     type="button"
                     aria-label="Previous architecture layer"
                     disabled={layers.length < 2}
-                    onClick={() =>
-                      navigateLayer(-1)
-                    }
+                    onClick={() => navigateLayer(-1)}
                     className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/40 hover:text-white disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-white"
                   >
-                    <ArrowLeft
-                      size={18}
-                      strokeWidth={1.5}
-                    />
+                    <ArrowLeft size={18} strokeWidth={1.5} />
                   </button>
 
                   <button
                     type="button"
                     aria-label="Next architecture layer"
                     disabled={layers.length < 2}
-                    onClick={() =>
-                      navigateLayer(1)
-                    }
+                    onClick={() => navigateLayer(1)}
                     className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/40 hover:text-white disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-white"
                   >
-                    <ArrowRight
-                      size={18}
-                      strokeWidth={1.5}
-                    />
+                    <ArrowRight size={18} strokeWidth={1.5} />
                   </button>
                 </div>
               </div>
@@ -1199,4 +1032,3 @@ export default function ProjectArchitecture({
     </section>
   );
 }
-
