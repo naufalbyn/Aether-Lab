@@ -1,3 +1,4 @@
+
 import Capabilities from "@/components/sections/Capabilities";
 import Experiments from "@/components/sections/Experiments";
 import Founder from "@/components/sections/Founder";
@@ -12,7 +13,7 @@ import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <main>
+    <main id="top">
       <Navbar />
 
       <Hero />
